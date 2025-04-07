@@ -11,7 +11,7 @@ class Nx < Formula
     url :stable
   end
 
-  depends_on "node"
+  depends_on "node@22"
 
   def install
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)
