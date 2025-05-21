@@ -3,8 +3,8 @@ require "language/node"
 class Nx < Formula
   desc "Smart, Fast and Extensible Build System"
   homepage "https://nx.dev"
-  url "https://registry.npmjs.org/nx/-/nx-20.7.1.tgz"
-  sha256 "81b1c743fff0d48d1b77f2b3722aee8334d01ecc8c72fcd611c55409bfd36fa3"
+  url "https://registry.npmjs.org/nx/-/nx-21.0.4.tgz"
+  sha256 "dd1bf64358661a2d14dd027f8b0c6d8eea051afff4ec8206407bdb9335991f9f"
   license "MIT"
 
   livecheck do
