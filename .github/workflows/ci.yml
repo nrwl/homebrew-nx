@@ -1,0 +1,42 @@
+name: Homebrew Installation Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-installation:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        version: ['', '@20']
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Homebrew
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
+          eval "$(/opt/homebrew/bin/brew shellenv)"
+
+      - name: Tap nrwl/nx
+        run: |
+          brew tap nrwl/nx
+
+      - name: Checkout PR branch in brew repository
+        if: github.event_name == 'pull_request'
+        run: |
+          cd "$(brew --repository nrwl/nx)"
+          git fetch origin ${{ github.head_ref }}
+          git checkout ${{ github.head_ref }}
+
+      - name: Test Nx installation
+        run: |
+          brew install nx${{ matrix.version }}
+          nx --version
+          brew uninstall nx${{ matrix.version }}
