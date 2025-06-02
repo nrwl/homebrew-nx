@@ -14,7 +14,7 @@ class Nx < Formula
   depends_on "node@22"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
   end
 
